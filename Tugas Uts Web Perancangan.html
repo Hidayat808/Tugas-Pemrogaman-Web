@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warteg Online - Pesan Makanan Tradisional</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .menu-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+        }
+        .menu-item img {
+            max-width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        #keranjang {
+            margin-top: 20px;
+            border-top: 2px solid #ddd;
+            padding-top: 20px;
+        }
+        #total-harga {
+            font-weight: bold;
+            text-align: right;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .form-tambah-menu {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .form-tambah-menu input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #pratinjau-gambar {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🥘 Warteg Online 🍲</h1>
+        
+        <!-- Form Tambah Menu Baru -->
+        <div class="form-tambah-menu">
+            <h2>Tambah Menu Baru</h2>
+            <input type="text" id="nama-menu" placeholder="Nama Makanan">
+            <input type="number" id="harga-menu" placeholder="Harga Makanan">
+            <input type="file" id="gambar-menu" accept="image/*">
+            <img id="pratinjau-gambar" src="" alt="Pratinjau Gambar" style="display:none;">
+            <button onclick="tambahMenuBaru()">Tambah Menu</button>
+        </div>
+
+        <div id="menu-makanan" class="menu-grid">
+            <!-- Menu items will be dynamically added here -->
+        </div>
+
+        <div id="keranjang">
+            <h2>Keranjang Pesanan</h2>
+            <div id="daftar-pesanan"></div>
+            <div id="total-harga">Total: Rp 0</div>
+            <button onclick="prosesPesanan()">Proses Pesanan</button>
+        </div>
+    </div>
+
+    <script>
+        // Daftar menu makanan Warteg
+        let menuMakanan = [
+            { 
+                id: 1, 
+                nama: 'Nasi Putih', 
+                harga: 3000, 
+                gambar: 'https://tse2.mm.bing.net/th?id=OIP.bT-VNDfpb-QCaEZIsWkheQHaF8&pid=Api&P=0&h=180' 
+            },
+            { 
+                id: 2, 
+                nama: 'Ayam Goreng', 
+                harga: 8000, 
+                gambar: 'https://tse2.mm.bing.net/th?id=OIP.if7cZzddOYct0VvAE8loVgHaEK&pid=Api&P=0&h=180'
+            },
+            { 
+                id: 3, 
+                nama: 'Tempe Goreng', 
+                harga: 1000, 
+                gambar: 'https://tse2.mm.bing.net/th?id=OIP.HcGOuKcQGPrpXR26wUEaOwHaFj&pid=Api&P=0&h=180' 
+            },
+            { 
+                id: 4, 
+                nama: 'Oseng-Oseng Kangkung', 
+                harga: 4000, 
+                gambar: 'https://tse1.mm.bing.net/th?id=OIP.aa-q-Ka7kwQ0jfTePRLOLQHaE6&pid=Api&P=0&h=180' 
+            },
+            { 
+                id: 5, 
+                nama: 'Sayur Lodeh', 
+                harga: 5000, 
+                gambar: 'https://tse1.mm.bing.net/th?id=OIP.PzUaib0R9fEVVuscataM5QHaEK&pid=Api&P=0&h=180' 
+            },
+            { 
+                id: 6, 
+                nama: 'Mie Goreng', 
+                harga: 10000, 
+                gambar: 'https://tse1.mm.bing.net/th?id=OIP.4rbTZFWOH25jTeAkn2unsAHaEK&pid=Api&P=0&h=180' 
+            }
+        ];
+
+        // Keranjang pesanan
+        let keranjang = [];
+        let nextMenuId = 7; // ID untuk menu baru
+
+        // Pratinjau gambar saat dipilih
+        document.getElementById('gambar-menu').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const pratinjauGambar = document.getElementById('pratinjau-gambar');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    pratinjauGambar.src = e.target.result;
+                    pratinjauGambar.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                pratinjauGambar.src = '';
+                pratinjauGambar.style.display = 'none';
+            }
+        });
+
+        // Fungsi untuk menambah menu baru
+        function tambahMenuBaru() {
+            const namaMenu = document.getElementById('nama-menu').value;
+            const hargaMenu = parseInt(document.getElementById('harga-menu').value);
+            const gambarMenu = document.getElementById('gambar-menu');
+            const pratinjauGambar = document.getElementById('pratinjau-gambar');
+
+            // Validasi input
+            if (!namaMenu || isNaN(hargaMenu) || gambarMenu.files.length === 0) {
+                alert('Harap isi semua field dengan benar');
+                return;
+            }
+
+            // Buat objek menu baru
+            const menuBaru = {
+                id: nextMenuId++,
+                nama: namaMenu,
+                harga: hargaMenu,
+                gambar: pratinjauGambar.src
+            };
+
+            // Tambahkan ke daftar menu
+            menuMakanan.push(menuBaru);
+
+            // Tambahkan ke tampilan
+            const menuContainer = document.getElementById('menu-makanan');
+            const itemElement = document.createElement('div');
+            itemElement.classList.add('menu-item');
+            itemElement.dataset.id = menuBaru.id;
+            itemElement.innerHTML = `
+                <img src="${menuBaru.gambar}" alt="${menuBaru.nama}">
+                <h3>${menuBaru.nama}</h3>
+                <p>Rp ${menuBaru.harga.toLocaleString()}</p>
+                <button onclick="tambahKeKeranjang(${menuBaru.id})">Tambah</button>
+            `;
+            menuContainer.appendChild(itemElement);
+
+            // Reset form
+            document.getElementById('nama-menu').value = '';
+            document.getElementById('harga-menu').value = '';
+            gambarMenu.value = '';
+            pratinjauGambar.src = '';
+            pratinjauGambar.style.display = 'none';
+        }
+
+        // Fungsi untuk menampilkan menu awal
+        function tampilkanMenu() {
+            const menuContainer = document.getElementById('menu-makanan');
+            menuMakanan.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('menu-item');
+                itemElement.dataset.id = item.id;
+                itemElement.innerHTML = `
+                    <img src="${item.gambar || '/api/placeholder/200/200?text=' + encodeURIComponent(item.nama)}" alt="${item.nama}">
+                    <h3>${item.nama}</h3>
+                    <p>Rp ${item.harga.toLocaleString()}</p>
+                    <button onclick="tambahKeKeranjang(${item.id})">Tambah</button>
+                `;
+                menuContainer.appendChild(itemElement);
+            });
+        }
+
+        // Fungsi untuk menambah item ke keranjang
+        function tambahKeKeranjang(id) {
+            const item = menuMakanan.find(m => m.id === id);
+            keranjang.push(item);
+            updateKeranjang();
+        }
+
+        // Fungsi untuk update keranjang
+        function updateKeranjang() {
+            const daftarPesanan = document.getElementById('daftar-pesanan');
+            const totalHarga = document.getElementById('total-harga');
+            
+            // Bersihkan daftar pesanan sebelumnya
+            daftarPesanan.innerHTML = '';
+            
+            // Tampilkan item di keranjang
+            keranjang.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.innerHTML = `
+                    ${item.nama} - Rp ${item.harga.toLocaleString()}
+                    <button onclick="hapusDariKeranjang(${index})">Hapus</button>
+                `;
+                daftarPesanan.appendChild(itemElement);
+            });
+
+            // Hitung total harga
+            const total = keranjang.reduce((sum, item) => sum + item.harga, 0);
+            totalHarga.textContent = `Total: Rp ${total.toLocaleString()}`;
+        }
+
+        // Fungsi untuk menghapus item dari keranjang
+        function hapusDariKeranjang(index) {
+            keranjang.splice(index, 1);
+            updateKeranjang();
+        }
+
+        // Fungsi proses pesanan
+        function prosesPesanan() {
+            if (keranjang.length === 0) {
+                alert('Keranjang masih kosong!');
+                return;
+            }
+
+            const total = keranjang.reduce((sum, item) => sum + item.harga, 0);
+            alert(`Pesanan berhasil! Total pembayaran: Rp ${total.toLocaleString()}`);
+            
+            // Reset keranjang
+            keranjang = [];
+            updateKeranjang();
+        }
+
+        // Tampilkan menu saat halaman dimuat
+        window.onload = tampilkanMenu;
+    </script>
+</body>
+</html>
