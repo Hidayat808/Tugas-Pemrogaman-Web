@@ -1,0 +1,175 @@
+/* style.css */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-image: url('image.png');
+    background-size: cover;
+    
+}
+
+/* Container Utama */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background-color: #fff;
+    min-height: 100vh;
+    padding: 20px;
+    position: fixed; /* Agar sidebar tetap */
+    left: 0;
+    top: 0;
+}
+
+.sidebar-dark {
+    background-color: #fff; /* Sesuai gambar admin */
+}
+
+.sidebar-header {
+    background-color: #555;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.menu-link {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 5px;
+    
+}
+
+.menu-link:hover, .menu-link.active {
+    background-color: #eee;
+    font-weight: bold;
+}
+
+/* Main Content Area */
+.main-content {
+    flex: 1;
+    margin-left: 270px; /* Space for sidebar */
+}
+
+.centered-content {
+    margin: 0 auto;
+    max-width: 480px; /* Mobile view simulation */
+}
+
+h1, h2, h3 {
+    color: white;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Kartu Putih (Card) */
+.card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.card h3, .card h4 {
+    color: #333;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+/* Forms & Inputs */
+input[type="text"], input[type="password"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #333;
+}
+
+.btn-secondary {
+    background-color: white;
+    color: #333;
+    border: 1px solid #333;
+}
+
+/* Grid Layouts */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+/* Items List Style */
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.list-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.price {
+    font-weight: bold;
+}
+
+/* Navbar Navigasi (Untuk demo ini agar bisa pindah halaman) */
+.top-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: rgba(0,0,0,0.8);
+    padding: 5px;
+    z-index: 1000;
+}
+.top-nav a {
+    color: #fff;
+    margin: 0 5px;
+    font-size: 12px;
+    text-decoration: none;
+    border: 1px solid white;
+    padding: 2px 5px;
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restoran Kamai - Pelanggan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="top-nav">
+        <a href="index.html">Pelanggan</a>
+        <a href="admin.html">Admin</a>
+        <a href="owner.html">Owner</a>
+        <a href="chef.html">Chef</a>
+        <a href="kasir.html">Kasir</a>
+        <a href="pelayan.html">Pelayan</a>
+    </div>
+
+    <div class="container centered-content" style="display: block;">
+        <h2>Selamat Datang Di Restoran Kamai</h2>
+
+        <div class="grid-2">
+            <div class="card">
+                <h4>Login Pelanggan</h4>
+                <input type="text" placeholder="Username">
+                <input type="password" placeholder="Password">
+                <button class="btn">Login</button>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="border: 2px dashed #333; width: 80px; height: 80px; margin: 0 auto 10px auto; display: flex; align-items: center; justify-content: center;">
+                    QR
+                </div>
+                <button class="btn">Scan QR Code</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h4>MENU MAKANAN</h4>
+            
+            <div class="list-item">
+                <div style="display:flex; align-items:center;">
+                    <div style="width:40px; height:40px; background:#ccc; margin-right:10px;"></div>
+                    <div>
+                        <b>Ayam Bakar</b><br>
+                        <small style="color:gray">Harga</small>
+                    </div>
+                </div>
+                <span class="price">Rp 10.000</span>
+            </div>
+
+            <div class="list-item">
+                <div style="display:flex; align-items:center;">
+                    <div style="width:40px; height:40px; background:#ccc; margin-right:10px;"></div>
+                    <div>
+                        <b>Bebek Goreng</b><br>
+                        <small style="color:gray">Harga</small>
+                    </div>
+                </div>
+                <span class="price">Rp 15.000</span>
+            </div>
+
+            <div class="list-item">
+                <div style="display:flex; align-items:center;">
+                    <div style="width:40px; height:40px; background:#ccc; margin-right:10px;"></div>
+                    <div>
+                        <b>Nasi Uduk</b><br>
+                        <small style="color:gray">Harga</small>
+                    </div>
+                </div>
+                <span class="price">Rp 7.000</span>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h4>Keranjang Order</h4>
+                <div style="font-size: 12px; margin-bottom: 5px; display:flex; justify-content:space-between;">
+                    <span>Ayam Bakar x1</span> <span>Rp 10.000</span>
+                </div>
+                <div style="font-size: 12px; margin-bottom: 10px; display:flex; justify-content:space-between;">
+                    <span>Nasi Uduk x2</span> <span>Rp 14.000</span>
+                </div>
+                <hr style="margin: 5px 0;">
+                <div style="font-weight: bold; display:flex; justify-content:space-between;">
+                    <span>Total</span> <span>Rp 24.000</span>
+                </div>
+                <button class="btn" style="margin-top: 10px;">Checkout</button>
+            </div>
+
+            <div class="card">
+                <h4>PEMBAYARAN</h4>
+                <div style="display:flex; justify-content:space-between; font-size: 12px; margin-bottom:10px;">
+                    <b>Total Bayar</b> <b>Rp 24.000</b>
+                </div>
+                <div class="grid-2" style="margin-bottom: 5px;">
+                    <button class="btn-secondary" style="padding: 5px;">Cash</button>
+                    <button class="btn" style="padding: 5px;">QRIS</button>
+                </div>
+                <button class="btn-secondary" style="width: 100%; margin-bottom: 10px;">Transfer</button>
+                <button class="btn">Bayar Sekarang</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

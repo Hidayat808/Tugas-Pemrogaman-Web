@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Restoran</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Custom untuk grafik sederhana */
+        .graph-container {
+            display: flex;
+            align-items: flex-end;
+            height: 150px;
+            gap: 10px;
+            padding-top: 20px;
+        }
+        .bar {
+            background-color: #333;
+            width: 20px;
+            text-align: center;
+            color: white;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">ADMIN</div>
+        <a href="#" class="menu-link active">Dashboard</a>
+        <a href="#" class="menu-link">Mengola Akun</a>
+        <a href="#" class="menu-link">Konfirmasi Sistem</a>
+        <a href="#" class="menu-link">Backup & Restore</a>
+        <a href="#" class="menu-link">Cek Server</a>
+        <a href="#" class="menu-link">Perbaiki Error</a>
+        <a href="#" class="menu-link">Update Aplikasi</a>
+        <a href="#" class="menu-link">Logout</a>
+    </div>
+
+    <div class="main-content" style="padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="text-align: left;">Selamat Datang, Admin Restoran Kami</h2>
+            <div>
+                <input type="text" placeholder="Search user..." style="width: 200px; display: inline-block;">
+                <button class="btn" style="width: auto; display: inline-block;">+Tambah User</button>
+            </div>
+        </div>
+
+        <div class="grid-3">
+            <div class="card">
+                <h4>Jumlah Akun</h4>
+                <h2>3 Akun</h2>
+                <small>Pengguna aktif & terdaftar</small>
+            </div>
+            <div class="card">
+                <h4>Server Status</h4>
+                <h3>Online</h3>
+                <small>CPU 23% . Memory 38% . Disk 68%</small>
+            </div>
+            <div class="card">
+                <h4>Backup Terakhir</h4>
+                <h3>-</h3>
+                <small>Otomatis & Manual</small>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h4>Grafik Aktivitas</h4>
+                <div class="graph-container">
+                    <div style="margin-left: 5px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; font-size: 10px;">
+                        <span>35</span><span>20</span><span>5</span>
+                    </div>
+                    <div class="bar" style="height: 60%; margin-left: 10px;"></div> <div class="bar" style="height: 70%;"></div> <div class="bar" style="height: 100%;"></div> </div>
+                <div style="display: flex; gap: 15px; font-size: 10px; margin-left: 30px;">
+                   <span>Tue</span> <span>Thu</span> <span>Sat</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h4>Notifikasi Sistem</h4>
+                <ul>
+                    <li>Tidak ada notifikasi penting</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
